@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for com in company %}
+<h1>{{ com.name }}</h1>
+
+<h1> <img src="{{ com.image.url }}" style="width:40%; height:40%;"></h1>
+<h1></h1>
+{% endfor %}
+</body>
+</html>
