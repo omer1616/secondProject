@@ -7,7 +7,7 @@ class CompanyForm(ModelForm):
         model = Company
         fields = "__all__"
         widgets = {'image': FileInput(
-            attrs={'form-label-margin-bottom': '.5rem;', 'class': 'form-control form-control-lg', 'required': False, }
+            attrs={'form-label-margin-bottom': '.5rem;', 'class': 'form-control form-control-lg', 'required': False}
         )}
 
 
