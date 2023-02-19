@@ -3,7 +3,7 @@
 
 {% block main %}
     <div class="card">
-    <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal"  tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -16,7 +16,7 @@
             <p>Modal body text goes here.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" id="delete-botton" class="btn btn-primary">Save changes</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -98,7 +98,7 @@
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm" id="delete" href="#" data-toggle="modal" data-target=".modal">
+                          <a class="btn btn-danger btn-sm" onclick="deleteBtn({{ company.id }})" id="delete" href="#" data-toggle="modal" data-target=".modal">
                               <i class="fas fa-trash">
                               </i>
                               Delete
@@ -112,13 +112,24 @@
         <!-- /.card-body -->
       </div>
     <script>
-    var deleteButton =  document.querySelector("#delete")
-    deleteButton.addEventListener('click',  function (){
-        console.log("tıklandı")
-        var modal = document.querySelector(".modal")
-            window.location.href(".modal")
-        }
+    var deleteBtn = function (companyId){
+        var commitBtn = document.querySelector('#delete-botton')
+        commitBtn.addEventListener('click', function (){
+           console.log("tıklandı", companyId)
+            $.ajax({
+                url: 'list-company/{{ companyId }}/delete',
+                data: {
+                    'companyId': companyId
+                },
+                success: function (){
+                   alert("silindi")
+                }
+            })
 
-    )
+        })
+
+    }
+
+
     </script>
 {% endblock %}

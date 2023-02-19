@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse
+from django.http import HttpResponse,  JsonResponse
 from .models import *
 from .forms import CompanyForm
 
@@ -29,7 +29,7 @@ def add_company(request):
 def delete_company(request, id):
     company = Company.objects.get(id=id)
     company.delete()
-    return redirect('list_company')
+    return JsonResponse({"status": "True"})
 
 def list_person(request):
     company = Company.objects.all()
