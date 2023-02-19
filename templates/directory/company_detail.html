@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    <ul>
+        <li>{{ company.name }}</li>
+        <li>{{ company.company_description }}</li>
+        <li><img style="height: 100px; width: 100px" src="{{ company.image.url }}"></li>
+    </ul>
+
+{% endblock %}
