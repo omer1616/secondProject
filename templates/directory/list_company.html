@@ -74,8 +74,9 @@
 
                           <ul class="list-inline">
                               <li class="list-inline-item">
-
+                                   {% if company.image %}
                                   <img alt="Avatar" class="img-circle elevation-2" style="width: 100px; height: 100px" src="{{ company.image.url }}">
+                                  {% endif %}
                               </li>
 
 
@@ -98,7 +99,7 @@
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm" onclick="deleteBtn({{ company.id }})" id="delete" href="#" data-toggle="modal" data-target=".modal">
+                          <a class="btn btn-danger btn-sm" data-url_root="{% url 'company_delete' company.id %}" onclick="deleteBtn({{ company.id }})" id="delete" href="#" data-toggle="modal"data-target=".modal" >
                               <i class="fas fa-trash">
                               </i>
                               Delete
@@ -114,17 +115,25 @@
     <script>
     var deleteBtn = function (companyId){
         var commitBtn = document.querySelector('#delete-botton')
+         var url = $("#delete").attr("data-url_root");
+         console.log("url", url)
+
         commitBtn.addEventListener('click', function (){
+            var url = $("#delete").attr("data-url_root");
+
            console.log("tıklandı", companyId)
-            $.ajax({
-                url: 'list-company/{{ companyId }}/delete',
-                data: {
-                    'companyId': companyId
-                },
-                success: function (){
-                   alert("silindi")
-                }
-            })
+             $.ajax({
+             url: url,
+             method: 'DELETE',
+
+            success: function(response) {
+                console.log('Kitap silindi.');
+                location.reload();
+            },
+            error: function(error) {
+                console.log('Bir hata oluştu:', error);
+            }
+        });
 
         })
 

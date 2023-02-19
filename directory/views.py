@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import *
 from .forms import CompanyForm
 
@@ -31,14 +33,14 @@ def company_detail(request, id):
     company = get_object_or_404(Company, id=id)
     print(company)
     context = {
-        "company":  company
+        "company": company
     }
-    return render(request, "directory/company_detail.html",context=context)
+    return render(request, "directory/company_detail.html", context=context)
 
 
 def company_update(request, id):
     company = get_object_or_404(Company, id=id)
-    form = CompanyForm(request.POST,  request.FILES or None, instance=company)
+    form = CompanyForm(request.POST, request.FILES or None, instance=company)
     if form.is_valid():
         form.save()
         return redirect('list_company')
@@ -48,10 +50,13 @@ def company_update(request, id):
     }
 
     return render(request, 'directory/company_update.html', context=context)
+
+@csrf_exempt
 def delete_company(request, id):
-    company = Company.objects.get(id=id)
+
+    company = get_object_or_404(Company, id=id)
     company.delete()
-    return JsonResponse({"status": "True"})
+    return HttpResponse(reverse('list_company'))
 
 
 def list_person(request):
