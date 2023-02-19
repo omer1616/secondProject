@@ -1,5 +1,5 @@
-from django.forms import ModelForm ,TextInput, FileInput
-from .models import Company
+from django.forms import ModelForm, TextInput, FileInput
+from .models import Company, Person
 
 
 class CompanyForm(ModelForm):
@@ -11,3 +11,7 @@ class CompanyForm(ModelForm):
         )}
 
 
+class PersonForm(ModelForm):
+    class Meta:
+        model = Person
+        fields = "__all__"

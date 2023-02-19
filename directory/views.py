@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import *
-from .forms import CompanyForm
+from .forms import CompanyForm , PersonForm
 
 
 # Create your views here.
@@ -60,13 +60,21 @@ def delete_company(request, id):
 
 
 def list_person(request):
-    company = Company.objects.all()
+    persons = Person.objects.all()
     context = {
-        'company': company
+        'persons': persons
     }
 
     return render(request, 'directory/list_person.html')
 
 
 def add_person(request):
-    return render(request, 'directory/add_person.html', )
+    form = PersonForm(request.POST,  request.FILES or None)
+    if form.is_valid():
+        form.save()
+
+    context = {
+         "form": form
+     }
+
+    return render(request, 'directory/add_person.html', context=context)
