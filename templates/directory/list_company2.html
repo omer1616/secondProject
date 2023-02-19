@@ -141,13 +141,11 @@
 
            console.log("tıklandı", companyId)
              $.ajax({
-             {#url: url,#}
-             url:  "http://127.0.0.1:8000/list-company/delete/" + companyId,
+             url: url,
              method: 'DELETE',
 
             success: function(response) {
                 $(location).attr('href', '#alert');
-
                 console.log('Kitap silindi.');
                 location.reload();
             },
