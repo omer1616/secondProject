@@ -65,7 +65,7 @@ def list_person(request):
         'persons': persons
     }
 
-    return render(request, 'directory/list_person.html')
+    return render(request, 'directory/list_person.html', context=context)
 
 
 def add_person(request):
